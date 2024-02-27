@@ -1,0 +1,11 @@
+# Node environment 
+node_modules/
+
+# Lock file
+*.lock 
+*-lock.json
+
+.env
+
+# OS generate
+.DS_Store
