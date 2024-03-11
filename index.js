@@ -36,14 +36,23 @@ io.on("connection", (socket) => {
 
   socket.on('online', async (user) => {
     socket.join(user.id);
-    socket.emit("connected");
-    console.log(user.username + " connected");
+    io.sockets.emit("connected", user.id);
+    let user1 = await redisClient.get(`account-${user.id}`);
 
+    if (user1) {
+      await redisClient.del(`account-${user.id}`);
+      await redisClient.SET(`account-${user.id}`, JSON.stringify({ online: true }));
+    }
 
-    socket.on("disconnect", () => {
+    socket.on("disconnect", async () => {
       socket.leave(user.id);
-      console.log(user.username + " USER DISCONNECTED");
-      io.sockets.emit('joined');
+      io.sockets.emit('disconnected', user.id);
+      let user2 = await redisClient.get(`account-${user.id}`);
+
+      if (user2) {
+        await redisClient.del(`account-${user.id}`);
+        await redisClient.SET(`account-${user.id}`, JSON.stringify({ online: false }));
+      }
     });
 
   });
