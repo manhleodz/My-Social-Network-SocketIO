@@ -57,6 +57,10 @@ io.on("connection", (socket) => {
 
   });
 
+  socket.on("notification", async (data) => {
+    io.sockets.to(data.receiver).emit("notification", data);
+  });
+
   socket.on("join_room", (data) => {
     socket.join(data);
   });
