@@ -73,7 +73,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send_message", (data) => {
-    socket.to(data.receiver).emit(`receiver`);
+    socket.to(data.receiver).emit(`receiver`, data);
     socket.to(data.room).emit("receive_message", data);
   });
 
