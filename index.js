@@ -61,6 +61,11 @@ io.on("connection", (socket) => {
     io.sockets.to(data.receiver).emit("notification", data);
   });
 
+  socket.on("delete_message", async (data) => {
+    // io.sockets.to(data.receiver).emit("delete_message_receiver", data);
+    io.sockets.to(data.room).emit("delete_message_receiver", data);
+  });
+
   socket.on("join_room", (data) => {
     socket.join(data);
   });
@@ -77,7 +82,6 @@ io.on("connection", (socket) => {
       socket.to(data.receiver).emit(`receiver`, data);
     }
     socket.to(data.room).emit("receive_message", data);
-    console.log(data);
   });
 
 });
