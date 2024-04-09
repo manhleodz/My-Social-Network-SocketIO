@@ -199,6 +199,8 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(4040, () => {
+const port = process.env.PORT;
+
+server.listen(port, () => {
   console.log("SERVER RUNNING");
 });
