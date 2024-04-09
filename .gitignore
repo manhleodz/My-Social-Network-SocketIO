@@ -1,0 +1,10 @@
+# Node environment 
+node_modules/
+
+# Lock file
+*.lock 
+
+.env
+
+# OS generate
+.DS_Store
